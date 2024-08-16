@@ -13,33 +13,37 @@ import java.math.BigDecimal;
 @Table(name="coffees")
 @NamedQuery(name="Coffee.findAll", query="SELECT c FROM Coffee c")
 public class Coffee implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 123L;
 	@Id
-	@Column(name="COF_NAME")
+	@Column(name="cofName")
 	private String cofName;
-
 	private BigDecimal price;
-
 	private int sales;
-
 	private int total;
 
 	//bi-directional many-to-one association to Supplier
-//	@ManyToOne
-//	@JoinColumn(name="SUP_ID")
-//	private Supplier supplier;
+	@ManyToOne
+	@JoinColumn(name="supplier_ID")
+	private Supplier supplier;
 	
-	@Column(name="SUP_ID")
+	@Column(name="sup_ID")
 	private int supId;
 
-	public Coffee() {
+	public Coffee() {super();}
+
+
+	public Coffee(String cofName, BigDecimal price, int sales, int total, Supplier supplier, int supId) {
+		this.cofName=cofName;
+		this.price=price;
+		this.sales=sales;
+		this.total=total;
+		this.supplier=supplier;
+		this.supId=supId;
 	}
 
 	public String getCofName() {
 		return this.cofName;
 	}
-
 	public void setCofName(String cofName) {
 		this.cofName = cofName;
 	}
@@ -76,12 +80,12 @@ public class Coffee implements Serializable {
 		this.supId = supId;
 	}
 
-//	public Supplier getSupplier() {
-//		return this.supplier;
-//	}
-//
-//	public void setSupplier(Supplier supplier) {
-//		this.supplier = supplier;
-//	}
+	public Supplier getSupplier() {
+		return this.supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
 
 }
